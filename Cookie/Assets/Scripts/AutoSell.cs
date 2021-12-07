@@ -5,9 +5,9 @@ using UnityEngine;
 public class AutoSell : MonoBehaviour
 {
     
-    public bool SellingCookie = false;
+    public static bool SellingCookie = false;
     public static int CashIncrease = 1;
-    public int InternalIncrease;
+    public static int InternalIncrease;
 
     void Update() {
         CashIncrease = GlobalShop.shopPerSec;
@@ -15,15 +15,18 @@ public class AutoSell : MonoBehaviour
         if (SellingCookie == false)
         {
             SellingCookie = true;
-            StartCoroutine(SellTheCookie());
+            StartCoroutine(SellTheCookie()); 
         }
     }
 
-    IEnumerator SellTheCookie ()
+    public static IEnumerator SellTheCookie ()
     {
-        if (GlobalCookies.CookieCount <= 0)
+        if (GlobalCookies.CookieCount <= InternalIncrease - 1)
         {
-            //we can't do anything
+            GlobalCash.CashCount += GlobalCookies.CookieCount;
+            GlobalCookies.CookieCount -= GlobalCookies.CookieCount;
+            yield return new WaitForSeconds(1);
+            SellingCookie = false;
         }
         else
         {

@@ -28,8 +28,15 @@ public class SaveGame : MonoBehaviour {
         GlobalCash.CashCount -= saveValue;
         PlayerPrefs.SetInt("SavedCookies", GlobalCookies.CookieCount);
         PlayerPrefs.SetInt("SavedCash", GlobalCash.CashCount);
-        PlayerPrefs.SetInt("SavedBakers", GlobalBaker.bakePerSec);
+        
+        PlayerPrefs.SetInt("SavedBakers", GlobalBaker.numberOfBakers);
         PlayerPrefs.SetInt("SavedShops", GlobalShop.numberOfShops);
+        
+        PlayerPrefs.SetInt("SavedBPs", GlobalBaker.bakePerSec);
+        PlayerPrefs.SetInt("SavedSPs", GlobalShop.shopPerSec);
+        
+        PlayerPrefs.SetInt("SaveBValue", GlobalBaker.bakerValue);
+        PlayerPrefs.SetInt("SaveSValue", GlobalShop.shopValue);
         saveValue *= 2;
         PlayerPrefs.SetInt("SaveValue", saveValue);
     }

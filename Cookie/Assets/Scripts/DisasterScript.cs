@@ -12,7 +12,7 @@ public class DisasterScript : MonoBehaviour {
     public int cookieLoss;
     
     void Update() {
-        cookieCheck = GlobalCookies.CookieCount / 10;
+        cookieCheck = GlobalCookies.CookieCount / 200;
         if (disasterActive == false)
         {
             StartCoroutine(StartDisaster());
@@ -29,14 +29,12 @@ public class DisasterScript : MonoBehaviour {
             cookieLoss = Mathf.RoundToInt(GlobalCookies.CookieCount * 0.25f);
             GlobalCookies.CookieCount -= cookieLoss;
             statusBox.GetComponent<Text>().text = "You lost " + cookieLoss + " cookies in a factory fire";
+            statusBox.GetComponent<Animation>().Play("StatusReset");
             yield return new WaitForSeconds(3);
             statusBox.GetComponent<Animation>().Play("StatusAnim");
             yield return new WaitForSeconds(1);
-            //statusBox.GetComponent<Animation>().Stop("StatusAnim");
-            //statusBox.GetComponent<Animation>().Rewind("StatusAnim");
-            //statusBox.GetComponent<Animator>().Play("StatusAnim", -1, 0f);
         }
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
         disasterActive = false;
     }
 
